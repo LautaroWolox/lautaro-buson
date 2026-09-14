@@ -30,6 +30,7 @@ portfolio:
   cors:
     allowed-origins: ${CORS_ALLOWED_ORIGINS:http://localhost:5173,http://localhost:4173}
   contact:
+    max-per-minute: ${CONTACT_MAX_PER_MINUTE:5}
     mail-enabled: ${CONTACT_MAIL_ENABLED:false}
     from: ${MAIL_FROM:}
     to: ${CONTACT_TO:busonlautaro@gmail.com}
