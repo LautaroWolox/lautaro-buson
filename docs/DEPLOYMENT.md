@@ -5,8 +5,6 @@ La arquitectura está separada en dos piezas:
 - **Frontend:** Vue 3 estático (`dist/`). Recomendado: Firebase Hosting.
 - **Backend:** Java 21 + Spring Boot 3 (`backend/`). Recomendado: Google Cloud Run.
 
-No se usa Render en este proyecto.
-
 ## 1. Firebase Hosting · frontend
 
 Firebase Hosting permite servir el frontend estático sobre HTTPS. Para un portfolio personal el plan Spark suele ser suficiente mientras el consumo se mantenga dentro de sus límites.
