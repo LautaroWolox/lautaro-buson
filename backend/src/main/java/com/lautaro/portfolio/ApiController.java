@@ -1,6 +1,7 @@
 package com.lautaro.portfolio;
 
 import jakarta.validation.Valid;
+import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.mail.MailException;
@@ -14,9 +15,11 @@ import org.springframework.web.bind.annotation.RestController;
 @RequestMapping("/api")
 public class ApiController {
     private final ContactService contactService;
+    private final ContactRateLimiter rateLimiter;
 
-    public ApiController(ContactService contactService) {
+    public ApiController(ContactService contactService, ContactRateLimiter rateLimiter) {
         this.contactService = contactService;
+        this.rateLimiter = rateLimiter;
     }
 
     @GetMapping("/health")
@@ -26,6 +29,12 @@ public class ApiController {
 
     @PostMapping("/contact")
     public ResponseEntity<ApiResponse> contact(@Valid @RequestBody ContactRequest request) {
+        if (!rateLimiter.tryAcquire()) {
+            return ResponseEntity.status(HttpStatus.TOO_MANY_REQUESTS)
+                    .header(HttpHeaders.RETRY_AFTER, "60")
+                    .body(ApiResponse.ok("rate_limited", "Please wait before sending another message"));
+        }
+
         try {
             if (!contactService.send(request)) {
                 return ResponseEntity.status(HttpStatus.SERVICE_UNAVAILABLE)
