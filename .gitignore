@@ -1,0 +1,12 @@
+node_modules/
+dist/
+.env
+.env.*
+!.env.example
+.idea/
+.vscode/
+.DS_Store
+backend/target/
+*.log
+.firebase/
+.firebaserc
