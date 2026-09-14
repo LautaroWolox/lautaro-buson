@@ -35,8 +35,6 @@ El objetivo no es presentar una lista de tecnologías, sino mostrar una trayecto
 - Google Cloud Run para la API
 - GitHub Pages como fallback gratuito
 
-**No se usa Render.**
-
 ## Foco profesional
 
 La experiencia actual de Personal / Telecom Argentina se presenta como un proceso real de modernización:
