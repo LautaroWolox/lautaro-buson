@@ -1,0 +1,25 @@
+name: Deploy Java API to Cloud Run
+
+on:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: google-github-actions/auth@v2
+        with:
+          credentials_json: ${{ secrets.GCP_SERVICE_ACCOUNT }}
+      - uses: google-github-actions/setup-gcloud@v2
+      - name: Deploy API
+        run: |
+          gcloud run deploy lautaro-portfolio-api \
+            --source backend \
+            --project "${{ vars.GCP_PROJECT_ID }}" \
+            --region "${{ vars.GCP_REGION }}" \
+            --allow-unauthenticated \
+            --set-env-vars "CONTACT_MAIL_ENABLED=false,CORS_ALLOWED_ORIGINS=${{ vars.VITE_SITE_URL }}"
