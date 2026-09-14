@@ -4,6 +4,7 @@ import PrimeVue from 'primevue/config'
 import App from './App.vue'
 import { portfolioTheme } from './theme'
 import './styles.css'
+import './responsive-fixes.css'
 
 createApp(App)
   .use(createPinia())
